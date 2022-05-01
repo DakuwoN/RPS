@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
+# Imports the random module to create a random 'moves' value
 import random
+
+"""This function validates user input"""
+
+
+def valid_input(prompt, options):
+    while True:
+        option = input(prompt).lower()
+        if option in options:
+            return option
+        print(f'The option "{option}" is invalid. Try again!')
+
 
 """This program plays a game of Rock, Paper, Scissors between two Players,
 and reports both Player's scores each round."""
@@ -19,31 +31,33 @@ class Player:
         pass
 
 
-"""This class is for a human player."""
+"""This class is a subclass of the Player class, assigns a Random Player"""
 
 
-class HumanPlayer:
+class RandomPlayer(Player):
+
     def move(self):
-        response = input("Please select: Rock, Paper, or Scissors\n").lower()
-        if "rock" in response:
-            return "You have selected rock."
-        elif "paper" in response:
-            return "You have selected paper."
-        elif "scissors" in response:
-            return "You have selected scissors."
-        else:
-            self.move()
+        return random.choice(moves)
 
     def learn(self, my_move, their_move):
         pass
 
 
-"""This class is for a Random Player"""
+"""This subclass inherits from the Player Class, as a Human Player"""
 
 
-class RandomPlayer:
+class HumanPlayer(Player):
+
     def move(self):
-        return random.choice(moves)
+
+        response = valid_input(
+            "Please write: Rock, Paper or Scissors\n")
+        if response == 'rock':
+            print("You've selected Rock.")
+        elif response == 'paper':
+            print("You've selected paper")
+        elif response == 'scissors':
+            print("You've selected scissors.")
 
     def learn(self, my_move, their_move):
         pass
@@ -57,13 +71,16 @@ def beats(one, two):
 
 
 class Game:
-    """These class level variables keep count of score """
+    """Class level variables for score count"""
     p1_score = 0
     p2_score = 0
 
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
+        # Instance level variables for score keeping.
+        self.p1_score = 0
+        self.p2_score = 0
 
     def play_round(self):
         move1 = self.p1.move()
@@ -71,27 +88,23 @@ class Game:
         print(f"Player 1: {move1}  Player 2: {move2}")
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
-
-    # This logic checks which player won and displays the new score.
-
+    # This logic checks which player won/tie and tracks the score.
         if move1 == move2:
-            print("This round was a tie.\n"
+            print("This round is a tie!\n"
                   f"Player 1 Score: {self.p1_score}\n"
-                  f"Player 2 score: {self.p2_score}")
+                  f"Player 2 Score: {self.p2_score}")
 
         elif beats(move1, move2):
-
             self.p1_score += 1
-            print("Player 1 wins!\n"
+            print("Player 1 Wins!\n"
                   f"Player 1 Score: {self.p1_score}\n"
-                  f"Player 2 score: {self.p2_score}")
+                  f"Player 2 Score: {self.p2_score}")
 
-        else:
-
+        if beats(move2, move1):
             self.p2_score += 1
-            print("Player 2 wins!\n"
+            print("Player 2 wins\n"
                   f"Player 1 Score: {self.p1_score}\n"
-                  f"Player 2 score: {self.p2_score}")
+                  f"Player 2 Score: {self.p2_score}")
 
     def play_game(self):
         print("Welcome to the Rock Paper Scissors game!\n")
@@ -102,5 +115,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(RandomPlayer(), HumanPlayer())
+    game = Game(Player(), HumanPlayer())
     game.play_game()
