@@ -34,7 +34,7 @@ class Player:
 """This class is a subclass of the Player class, assigns a Random Player"""
 
 
-class RandomPlayer(Player):
+class Random(Player):
 
     def move(self):
         return random.choice(moves)
@@ -46,18 +46,21 @@ class RandomPlayer(Player):
 """This subclass inherits from the Player Class, as a Human Player"""
 
 
-class HumanPlayer(Player):
+class Human(Player):
+
+    """ This move method inherits from the Player object, and also returns human input. """
 
     def move(self):
+        return valid_input("Rock, Paper or Scissors?\n", moves)
 
-        response = valid_input(
-            "Please write: Rock, Paper or Scissors\n")
-        if response == 'rock':
-            print("You've selected Rock.")
-        elif response == 'paper':
-            print("You've selected paper")
-        elif response == 'scissors':
-            print("You've selected scissors.")
+    def learn(self, my_move, their_move):
+        pass
+
+
+"""This subclass learns the move from the last round-- and then plays that move in the following round."""
+
+
+class Reflect(Player):
 
     def learn(self, my_move, their_move):
         pass
@@ -78,9 +81,6 @@ class Game:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
-        # Instance level variables for score keeping.
-        self.p1_score = 0
-        self.p2_score = 0
 
     def play_round(self):
         move1 = self.p1.move()
@@ -115,5 +115,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(Player(), HumanPlayer())
+    game = Game(Human(), Random())
     game.play_game()
