@@ -81,10 +81,31 @@ class Reflect(Player):
     def move(self):
         return self.their_move
 
-    # This method remembers the opponents last move and itselfs last move.
+    # This method stores opponents last
     def learn(self, my_move, their_move):
         self.their_move = their_move
         self.my_move = my_move
+
+
+"""This subclass cycles to the next move."""
+
+
+class Cycle(Player):
+    # Dunder method. Assigns the next move to the
+    # possible outcome of moves.
+    def __init__(self):
+        self.my_next_move_index = random.randrange(3)
+
+    # We use modulo to cycle through each move.
+    # We also do not want to pick the same move twice.
+
+    def move(self):
+        my_next_move = moves[self.my_next_move_index]
+        self.my_next_move_index = (self.my_next_move_index + 1) % 3
+        return my_next_move
+
+
+"""This function tracks what moves beat the other!"""
 
 
 def beats(one, two):
@@ -136,5 +157,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(Human(), Reflect())
+    game = Game(Human(), Cycle())
     game.play_game()
