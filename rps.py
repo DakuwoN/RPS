@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 # Imports the random module to create a random 'moves' value
 import random
+# Imports the time module for the print_pause function
+# import time
+from unicodedata import name
+
+"""This function delays the time between print statements. """
+
+
+# def print_pause(message):
+#     print(message)
+#     time.sleep(2)
+
 
 """This function validates user input"""
 
@@ -24,6 +35,10 @@ in this game"""
 
 class Player:
 
+    # Instance variables for Refect Player.
+    my_move = random.choice(moves)
+    their_move = random.choice(moves)
+
     def move(self):
         return 'rock'
 
@@ -31,7 +46,7 @@ class Player:
         pass
 
 
-"""This class is a subclass of the Player class, assigns a Random Player"""
+"""This class is a subclass of the Player class, assigns a random move by the player."""
 
 
 class Random(Player):
@@ -62,8 +77,14 @@ class Human(Player):
 
 class Reflect(Player):
 
+    # Inherits from Player class, learns the opposing players move to use for it's next move.
+    def move(self):
+        return self.their_move
+
+    # This method remembers the opponents last move and itselfs last move.
     def learn(self, my_move, their_move):
-        pass
+        self.their_move = their_move
+        self.my_move = my_move
 
 
 def beats(one, two):
@@ -115,5 +136,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(Human(), Random())
+    game = Game(Human(), Reflect())
     game.play_game()
