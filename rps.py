@@ -116,7 +116,7 @@ def beats(one, two):
 
 
 class Game:
-    """Class level variables for score count"""
+    """Class level variables for score count and total score."""
     p1_score = 0
     p2_score = 0
 
@@ -130,7 +130,7 @@ class Game:
         print(f"Player 1: {move1}  Player 2: {move2}")
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
-    # This logic checks which player won/tie and tracks the score.
+    # This logic checks which player won/tie each round and tracks the score.
         if move1 == move2:
             print("This round is a tie!\n"
                   f"Player 1 Score: {self.p1_score}\n"
@@ -154,6 +154,14 @@ class Game:
             print(f"Round {round}:")
             self.play_round()
         print("Game over!")
+        # This logic decides who the winner is along with the total score.
+
+        if self.p1_score == self.p2_score:
+            print("This game ends in a tie!")
+        elif self.p1_score > self.p2_score:
+            print("Player 1 wins this game!")
+        if self.p1_score < self.p2_score:
+            print("Player 2 wins this game!")
 
 
 if __name__ == '__main__':
