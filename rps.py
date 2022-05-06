@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
 # Imports the random module to create a random 'moves' value
 import random
-# Imports the time module for the print_pause function
-# import time
+
 from unicodedata import name
-
-"""This function delays the time between print statements. """
-
-
-# def print_pause(message):
-#     print(message)
-#     time.sleep(2)
 
 
 """This function validates user input"""
@@ -46,7 +38,8 @@ class Player:
         pass
 
 
-"""This class is a subclass of the Player class, assigns a random move by the player."""
+"""This class is a subclass of the Player class, assigns
+ a random move by the player."""
 
 
 class Random(Player):
@@ -63,7 +56,8 @@ class Random(Player):
 
 class Human(Player):
 
-    """ This move method inherits from the Player object, and also returns human input. """
+    # This move method inherits from the Player object,
+    # and also returns human input.
 
     def move(self):
         return valid_input("Rock, Paper or Scissors?\n", moves)
@@ -72,12 +66,14 @@ class Human(Player):
         pass
 
 
-"""This subclass learns the move from the last round-- and then plays that move in the following round."""
+"""This subclass learns the move from the last round
+and then plays that move in the following round."""
 
 
 class Reflect(Player):
 
-    # Inherits from Player class, learns the opposing players move to use for it's next move.
+    # Inherits from Player class, learns the opposing players
+    #  move to use for it's next move.
     def move(self):
         return self.their_move
 
@@ -151,17 +147,21 @@ class Game:
     def play_game(self):
         print("Welcome to the Rock Paper Scissors game!\n")
         for round in range(3):
-            print(f"Round {round}:")
+            print(f"Round {round + 1}:")
             self.play_round()
         print("Game over!")
         # This logic decides who the winner is along with the total score.
 
         if self.p1_score == self.p2_score:
-            print("This game ends in a tie!")
+            print("This game ends in a tie!\n"
+                  f"Player 1 Score: {self.p1_score}\n"
+                  f"Player 2 Score: {self.p2_score}")
         elif self.p1_score > self.p2_score:
-            print("Player 1 wins this game!")
+            print(f"Player 1 wins the game!\nFinal Score: {self.p1_score}\n"
+                  f"Play 2 Final Score: {self.p2_score}")
         if self.p1_score < self.p2_score:
-            print("Player 2 wins this game!")
+            print(f"Player 2 wins the game!\nFinal Score: {self.p2_score}\n"
+                  f"Player 1 Final Score: {self.p1_score}")
 
 
 if __name__ == '__main__':
