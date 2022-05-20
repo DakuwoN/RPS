@@ -21,7 +21,7 @@ Python
 
 ### Continued development
 
-After being introduced to Python, this was my second project, it was a major leap and challenge for me, but it really was worth it in the end. I enjoy Object Orientated Programming, it made me think hard about the solutions.
+After being introduced to Python, this was my second project, it was a major leap and challenge for me, but it really was worth it in the end. I enjoy Object Orientated Programming.
 
 ## Author
 
